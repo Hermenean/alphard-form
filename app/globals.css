@@ -161,6 +161,19 @@ input:focus, select:focus {
   box-shadow: none;
 }
 
+.btn.small {
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 12px;
+  margin-right: 6px;
+  box-shadow: none;
+}
+
+.btn.danger {
+  background: #ff3b7b;
+}
+
 .notice {
   padding: 12px 14px;
   border-radius: 12px;

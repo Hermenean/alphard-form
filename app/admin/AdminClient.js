@@ -70,6 +70,41 @@ export default function AdminClient() {
     loadData();
   }, [searchParams]);
 
+  const updateDone = async (id, done) => {
+    if (!supabasePublic) return;
+    const { data: sessionData } = await supabasePublic.auth.getSession();
+    const session = sessionData?.session;
+    if (!session) return router.push('/admin/login');
+
+    await fetch(`/api/admin/submissions/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${session.access_token}`
+      },
+      body: JSON.stringify({ done })
+    });
+    loadData();
+  };
+
+  const deleteRow = async (id) => {
+    if (!supabasePublic) return;
+    const { data: sessionData } = await supabasePublic.auth.getSession();
+    const session = sessionData?.session;
+    if (!session) return router.push('/admin/login');
+
+    const ok = confirm('Stergi aceasta cerere?');
+    if (!ok) return;
+
+    await fetch(`/api/admin/submissions/${id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${session.access_token}`
+      }
+    });
+    loadData();
+  };
+
   const logout = async () => {
     await supabasePublic.auth.signOut();
     router.push('/admin/login');
@@ -129,12 +164,14 @@ export default function AdminClient() {
                   <th>Telefon</th>
                   <th>Email</th>
                   <th>Examen</th>
+                  <th>Status</th>
+                  <th>Actiuni</th>
                 </tr>
               </thead>
               <tbody>
                 {rows.length === 0 ? (
                   <tr>
-                    <td colSpan={8}>Nu exista cereri pentru filtrele selectate.</td>
+                    <td colSpan={10}>Nu exista cereri pentru filtrele selectate.</td>
                   </tr>
                 ) : rows.map(row => (
                   <tr key={row.id}>
@@ -146,6 +183,15 @@ export default function AdminClient() {
                     <td>{row.phone}</td>
                     <td>{row.email}</td>
                     <td>{row.exam}</td>
+                    <td>{row.done ? 'Done' : 'Nou'}</td>
+                    <td>
+                      <button className="btn small" type="button" onClick={() => updateDone(row.id, !row.done)}>
+                        {row.done ? 'Undo' : 'Done'}
+                      </button>
+                      <button className="btn small danger" type="button" onClick={() => deleteRow(row.id)}>
+                        Sterge
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>

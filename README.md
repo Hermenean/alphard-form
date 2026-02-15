@@ -22,8 +22,15 @@ create table if not exists public.submissions (
   phone text not null,
   email text not null,
   exam text not null,
-  created_at timestamptz not null default now()
+  created_at timestamptz not null default now(),
+  done boolean not null default false
 );
+```
+
+If your table already exists, run:
+
+```sql
+alter table public.submissions add column if not exists done boolean not null default false;
 ```
 
 No RLS is required because inserts/queries are done via Service Role on the server.
