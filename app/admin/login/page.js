@@ -14,6 +14,10 @@ export default function AdminLogin() {
   const onSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    if (!supabasePublic) {
+      setError('Configurare Supabase lipsa. Verifica variabilele de mediu.');
+      return;
+    }
     const { error: signInError } = await supabasePublic.auth.signInWithPassword({
       email,
       password

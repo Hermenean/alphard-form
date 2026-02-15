@@ -35,6 +35,11 @@ export default function AdminPage() {
   const loadData = async () => {
     setLoading(true);
     setError('');
+    if (!supabasePublic) {
+      setError('Configurare Supabase lipsa. Verifica variabilele de mediu.');
+      setLoading(false);
+      return;
+    }
     const { data: sessionData } = await supabasePublic.auth.getSession();
     const session = sessionData?.session;
     if (!session) {

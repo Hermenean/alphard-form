@@ -8,6 +8,10 @@ export async function GET(req) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
+  if (!supabaseServer) {
+    return NextResponse.json({ error: 'Server config error' }, { status: 500 });
+  }
+
   const { data: userData, error: userError } = await supabaseServer.auth.getUser(token);
   if (userError || !userData?.user) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
