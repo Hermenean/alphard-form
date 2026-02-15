@@ -21,8 +21,7 @@ export default function Home({ searchParams }) {
       <Header title="Alphard Educational Centre" />
       <main className="container">
         <section className="hero">
-          <h1>Formular de inscriere pentru examene Cambridge</h1>
-          <p>Completeaza datele elevului pentru a primi detalii despre pregatirea examenului.</p>
+          <h1>Vă rugăm să completați formularul pentru înscrierea la unul dintre examenele Cambridge. Vă mulțumim!</h1>
         </section>
 
         <section className="form-card">
@@ -67,7 +66,7 @@ export default function Home({ searchParams }) {
               <button className="btn" type="submit">Trimite cererea</button>
             </div>
           </form>
-          <div className="footer">Daca ai intrebari, te rugam sa contactezi profesoara de engleza.</div>
+          <div className="footer">Pentru mai multe detalii, vă rugăm să ne contactați via WhatsApp la numărul de telefon 0740335385 sau via e-mail: alphardeducationalcentre@yahoo.com.</div>
         </section>
       </main>
     </>

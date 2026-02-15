@@ -153,49 +153,53 @@ export default function AdminClient() {
           {loading ? (
             <div className="notice">Se incarca...</div>
           ) : (
-            <table className="admin-table">
-              <thead>
-                <tr>
-                  <th>Data</th>
-                  <th>Nume</th>
-                  <th>Prenume</th>
-                  <th>Data nastere</th>
-                  <th>CNP</th>
-                  <th>Telefon</th>
-                  <th>Email</th>
-                  <th>Examen</th>
-                  <th>Status</th>
-                  <th>Actiuni</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rows.length === 0 ? (
+            <div className="table-wrap">
+              <table className="admin-table">
+                <thead>
                   <tr>
-                    <td colSpan={10}>Nu exista cereri pentru filtrele selectate.</td>
+                    <th>Data</th>
+                    <th>Nume</th>
+                    <th>Prenume</th>
+                    <th>Data nastere</th>
+                    <th>CNP</th>
+                    <th>Telefon</th>
+                    <th>Email</th>
+                    <th>Examen</th>
+                    <th>Status</th>
+                    <th>Actiuni</th>
                   </tr>
-                ) : rows.map(row => (
-                  <tr key={row.id}>
-                    <td>{new Date(row.created_at).toLocaleDateString('ro-RO')}</td>
-                    <td>{row.first_name}</td>
-                    <td>{row.last_name}</td>
-                    <td>{row.birth_date}</td>
-                    <td>{row.cnp}</td>
-                    <td>{row.phone}</td>
-                    <td>{row.email}</td>
-                    <td>{row.exam}</td>
-                    <td>{row.done ? 'Done' : 'Nou'}</td>
-                    <td>
-                      <button className="btn small" type="button" onClick={() => updateDone(row.id, !row.done)}>
-                        {row.done ? 'Undo' : 'Done'}
-                      </button>
-                      <button className="btn small danger" type="button" onClick={() => deleteRow(row.id)}>
-                        Sterge
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {rows.length === 0 ? (
+                    <tr>
+                      <td colSpan={10}>Nu exista cereri pentru filtrele selectate.</td>
+                    </tr>
+                  ) : rows.map(row => (
+                    <tr key={row.id}>
+                      <td>{new Date(row.created_at).toLocaleDateString('ro-RO')}</td>
+                      <td>{row.first_name}</td>
+                      <td>{row.last_name}</td>
+                      <td>{row.birth_date}</td>
+                      <td>{row.cnp}</td>
+                      <td>{row.phone}</td>
+                      <td>{row.email}</td>
+                      <td>{row.exam}</td>
+                      <td>
+                        <span className={`status-dot ${row.done ? 'done' : ''}`} /> {row.done ? 'Done' : 'Nou'}
+                      </td>
+                      <td>
+                        <button className="btn small" type="button" onClick={() => updateDone(row.id, !row.done)}>
+                          {row.done ? 'Undo' : 'Done'}
+                        </button>
+                        <button className="btn small danger" type="button" onClick={() => deleteRow(row.id)}>
+                          Sterge
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           )}
         </section>
       </main>

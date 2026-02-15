@@ -201,6 +201,7 @@ input:focus, select:focus {
   padding: 10px 12px;
   border-bottom: 1px solid #efe8fb;
   text-align: left;
+  vertical-align: middle;
 }
 
 .admin-table th {
@@ -226,6 +227,30 @@ input:focus, select:focus {
   font-weight: 600;
 }
 
+.status-dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 6px;
+  background: #d3d3d3;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.6);
+}
+
+.status-dot.done {
+  background: #20c65a;
+  box-shadow: 0 0 0 2px rgba(32, 198, 90, 0.2);
+}
+
+.table-wrap {
+  overflow-x: auto;
+  border-radius: 18px;
+  border: 1px solid #efe0ff;
+}
+
+.admin-table {
+  min-width: 900px;
+}
+
 .footer {
   margin-top: 30px;
   color: #5f4a86;
@@ -238,5 +263,5 @@ input:focus, select:focus {
   .filter-bar { grid-template-columns: 1fr; }
   .brand-title { font-size: 24px; text-align: center; width: 100%; }
   .header-inner { justify-content: center; }
-  .logo-stack img { height: 50px; }
+  .logo-stack img { height: 66px; }
 }
