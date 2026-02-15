@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ro">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-inner">
+        <div class="logo-stack">
+          <img src="/img/alphard.png" alt="Alphard" />
+          <img src="/img/advantage.png" alt="British Council" />
+          <img src="/img/alphard-white.png" alt="Alphard Logo" />
+        </div>
+        <div class="brand-title">Admin Dashboard</div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <h1>Cereri primite</h1>
+        <p>Conectat ca <strong><%= adminEmail %></strong></p>
+        <form action="/admin/logout" method="post" style="margin-top:12px;">
+          <button class="btn secondary" type="submit">Logout</button>
+        </form>
+      </section>
+
+      <section class="form-card">
+        <div class="badge">Total cereri: <%= rows.length %></div>
+        <form method="get" action="/admin" class="filter-bar">
+          <div>
+            <label for="q">Cautare</label>
+            <input id="q" name="q" placeholder="Nume, email, telefon" value="<%= filters.q %>" />
+          </div>
+          <div>
+            <label for="exam">Examen</label>
+            <select id="exam" name="exam">
+              <option value="">Toate</option>
+              <% exams.forEach(exam => { %>
+                <option value="<%= exam %>" <%= filters.exam === exam ? 'selected' : '' %>><%= exam %></option>
+              <% }) %>
+            </select>
+          </div>
+          <div>
+            <label for="date_from">De la</label>
+            <input id="date_from" name="date_from" type="date" value="<%= filters.date_from %>" />
+          </div>
+          <div>
+            <label for="date_to">Pana la</label>
+            <input id="date_to" name="date_to" type="date" value="<%= filters.date_to %>" />
+          </div>
+          <div class="full">
+            <button class="btn" type="submit">Filtreaza</button>
+          </div>
+        </form>
+
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Nume</th>
+              <th>Prenume</th>
+              <th>Data nastere</th>
+              <th>CNP</th>
+              <th>Telefon</th>
+              <th>Email</th>
+              <th>Examen</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (rows.length === 0) { %>
+              <tr>
+                <td colspan="8">Nu exista cereri pentru filtrele selectate.</td>
+              </tr>
+            <% } %>
+            <% rows.forEach(row => { %>
+              <tr>
+                <td><%= new Date(row.created_at).toLocaleDateString('ro-RO') %></td>
+                <td><%= row.first_name %></td>
+                <td><%= row.last_name %></td>
+                <td><%= row.birth_date %></td>
+                <td><%= row.cnp %></td>
+                <td><%= row.phone %></td>
+                <td><%= row.email %></td>
+                <td><%= row.exam %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,229 @@
+@font-face {
+  font-family: "Recoleta";
+  src: url("/fonts/Recoleta-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --ink: #1b1230;
+  --plum: #5a14d6;
+  --magenta: #8b1fe6;
+  --card: #ffffff;
+  --line: #e9defb;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Manrope", system-ui, -apple-system, Segoe UI, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(1200px 800px at 10% 10%, #ffffff 0%, #f4edff 45%, #f4edff 70%, #ffffff 100%),
+    linear-gradient(120deg, #ffffff 0%, #f7f1ff 50%, #ffffff 100%);
+  min-height: 100vh;
+}
+
+.header {
+  padding: 24px 28px 12px;
+}
+
+.header-inner {
+  max-width: 980px;
+  margin: 0 auto;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.logo-stack {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.logo-stack img {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 14px;
+  background: #fff;
+  padding: 10px 14px;
+  box-shadow: 0 8px 20px rgba(32, 18, 77, 0.08);
+  border: 1px solid #efe6fb;
+}
+
+.brand-title {
+  font-family: "Recoleta", "Georgia", serif;
+  font-size: 32px;
+  letter-spacing: 0.5px;
+  text-align: center;
+  width: 100%;
+}
+
+.container {
+  max-width: 980px;
+  margin: 0 auto 60px;
+  padding: 0 20px;
+}
+
+.hero {
+  background: linear-gradient(120deg, #ffffff 0%, #f8f0ff 35%, #f8f6ff 70%, #ffffff 100%);
+  border: 1px solid #e1d4ff;
+  border-radius: 24px;
+  padding: 34px;
+  box-shadow: 0 24px 60px rgba(37, 24, 74, 0.12);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.hero h1 {
+  margin: 0 0 8px;
+  font-size: 34px;
+}
+
+.hero p {
+  margin: 0;
+  color: #463a62;
+}
+
+.form-card {
+  margin-top: 22px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: 0 16px 40px rgba(35, 22, 70, 0.08);
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: -40% -10% auto auto;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle at 30% 30%, #d5b6ff, #9c5bff 60%, transparent 70%);
+  opacity: 0.35;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+input, select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #d9caf8;
+  font-size: 15px;
+  text-align: center;
+}
+
+input:focus, select:focus {
+  outline: 2px solid #c7b5ff;
+  border-color: #c7b5ff;
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+.btn {
+  padding: 12px 18px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(120deg, var(--plum), var(--magenta));
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 14px 30px rgba(99, 24, 128, 0.28);
+}
+
+.btn.secondary {
+  background: #efe5ff;
+  color: #3a2457;
+  box-shadow: none;
+}
+
+.notice {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #f2e9ff;
+  border: 1px solid #d7c4ff;
+  color: #1f6e4f;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.error {
+  background: #ffe7f3;
+  border-color: #ffbde0;
+  color: #8a1c52;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 18px;
+  font-size: 14px;
+}
+
+.admin-table th, .admin-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #efe8fb;
+  text-align: left;
+}
+
+.admin-table th {
+  background: #f3e9ff;
+  font-weight: 700;
+}
+
+.filter-bar {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #efe5ff;
+  color: #3b1d63;
+  font-weight: 600;
+}
+
+.footer {
+  margin-top: 30px;
+  color: #5f4a86;
+  font-size: 13px;
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+  .grid { grid-template-columns: 1fr; }
+  .filter-bar { grid-template-columns: 1fr; }
+  .brand-title { font-size: 24px; text-align: center; width: 100%; }
+  .header-inner { justify-content: center; }
+  .logo-stack img { height: 50px; }
+}
