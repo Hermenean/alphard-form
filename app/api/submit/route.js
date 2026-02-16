@@ -39,11 +39,11 @@ export async function POST(req) {
 
   const resendApiKey = process.env.RESEND_API_KEY;
   const resendFrom = process.env.RESEND_FROM;
-  const notifyTo = process.env.NOTIFY_EMAIL || 'alphardeducationalcentre@yahoo.com';
+  const notifyTo = process.env.NOTIFY_EMAIL || 'hermes.marius32@gmail.com';
 
   if (resendApiKey && resendFrom) {
     try {
-      await fetch('https://api.resend.com/emails', {
+      const resendResponse = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -66,9 +66,21 @@ export async function POST(req) {
           `
         })
       });
-    } catch {
-      // ignore email errors so the form still succeeds
+
+      if (!resendResponse.ok) {
+        const errorBody = await resendResponse.text();
+        console.error('Resend email failed:', resendResponse.status, errorBody);
+      }
+    } catch (err) {
+      // Keep form success independent from email transport.
+      console.error('Resend email exception:', err);
     }
+  } else {
+    console.error('Resend env missing:', {
+      hasResendApiKey: !!resendApiKey,
+      hasResendFrom: !!resendFrom,
+      notifyTo
+    });
   }
 
   return NextResponse.redirect(new URL('/?success=1', req.url));
