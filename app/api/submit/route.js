@@ -39,7 +39,7 @@ export async function POST(req) {
 
   const resendApiKey = process.env.RESEND_API_KEY;
   const resendFrom = process.env.RESEND_FROM;
-  const notifyTo = process.env.NOTIFY_EMAIL || 'hermes.marius32@gmail.com';
+  const notifyTo = process.env.NOTIFY_EMAIL || 'andreeasclub@yahoo.com';
 
   if (resendApiKey && resendFrom) {
     try {

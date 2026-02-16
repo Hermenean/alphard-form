@@ -76,7 +76,7 @@ export default function AdminClient() {
     const session = sessionData?.session;
     if (!session) return router.push('/admin/login');
 
-    await fetch(`/api/admin/submissions/${id}`, {
+    const res = await fetch(`/api/admin/submissions/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -84,6 +84,10 @@ export default function AdminClient() {
       },
       body: JSON.stringify({ done })
     });
+    if (!res.ok) {
+      setError('Actualizarea statusului a esuat.');
+      return;
+    }
     loadData();
   };
 
@@ -185,12 +189,17 @@ export default function AdminClient() {
                       <td>{row.email}</td>
                       <td>{row.exam}</td>
                       <td>
-                        <span className={`status-dot ${row.done ? 'done' : ''}`} /> {row.done ? 'Done' : 'Nou'}
+                        <label style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                          <input
+                            className="done-check"
+                            type="checkbox"
+                            checked={!!row.done}
+                            onChange={(e) => updateDone(row.id, e.target.checked)}
+                          />
+                          <span className={`status-dot ${row.done ? 'done' : ''}`} /> {row.done ? 'Done' : 'Nou'}
+                        </label>
                       </td>
                       <td>
-                        <button className="btn small" type="button" onClick={() => updateDone(row.id, !row.done)}>
-                          {row.done ? 'Undo' : 'Done'}
-                        </button>
                         <button className="btn small danger" type="button" onClick={() => deleteRow(row.id)}>
                           Sterge
                         </button>
